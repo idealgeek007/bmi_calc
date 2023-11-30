@@ -1,0 +1,45 @@
+name: bmi_calc
+description: A new Flutter project.
+
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+#---------------PACKAGES--------------------#
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Utility Packages
+
+
+  #--------------Icons-----------------#
+  iconsax: ^0.0.0
+  cupertino_icons: ^1.0.2
+  dynamic_color: ^1.6.8
+  font_awesome_flutter: ^10.6.0
+
+
+#---------------development dependencies--------#
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  provider: 6.1.1
+
+flutter:
+  uses-material-design: true
+
+  #---------------------Local Assets--------------#
+  assets:
+    - assets/images/
+
+
+
+  #------------------LOCAL FONTS---------------#
+
+
