@@ -21,6 +21,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dynamic_color: ^1.6.8
   font_awesome_flutter: ^10.6.0
+  json_theme: ^6.3.2
 
 
 #---------------development dependencies--------#

@@ -1,10 +1,19 @@
+// main.dart
+import 'package:bmi_calc/reuable_card.dart';
 import 'package:bmi_calc/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-Color peachPuff = const Color(0x00ffdab9);
+import 'icon_content.dart';
 
 const bottomBarHeight = 60.0;
+Color activecolor = const Color(0xff26a59a);
+Color inactivecolor = const Color(0xff324b47);
+Color bgcolor = const Color(0xffb1ccc7);
+
+enum Gender {
+  male,
+  female,
+}
 
 void main() => runApp(const BMICalculator());
 
@@ -18,7 +27,7 @@ class BMICalculator extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: BmiTheme.lightTheme,
       darkTheme: BmiTheme.darkTheme,
-      home: const InputPage(),
+      home: InputPage(),
     );
   }
 }
@@ -31,131 +40,106 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      appBar: AppBar(
-        title: const Text('BMI CALCULATOR'),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: ReusableCard(
-                    colour: Theme.of(context).colorScheme.secondaryContainer,
-                    cardChild: IconContent(
-                      icon: FontAwesomeIcons.mars,
-                      label: ('MALE'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: ReusableCard(
-                    colour: Theme.of(context).colorScheme.secondaryContainer,
-                    cardChild: IconContent(
-                      icon: FontAwesomeIcons.venus,
-                      label: ('FEMALE'),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: ReusableCard(
-                    colour: Theme.of(context).colorScheme.secondaryContainer,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: ReusableCard(
-                    colour: Theme.of(context).colorScheme.secondaryContainer,
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: ReusableCard(
-                    colour: Theme.of(context).colorScheme.secondaryContainer,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            margin: const EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: bottomBarHeight,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class IconContent extends StatelessWidget {
-  IconContent({required this.icon, required this.label});
-  final IconData icon;
-  final String label;
+  Gender? selectedGender;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Icon(
-              icon as IconData?,
-              size: 80.0,
-            )),
-        const SizedBox(
-          height: 15.0,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: bgcolor,
+        appBar: AppBar(
+          title: const Text('BMI CALCULATOR'),
         ),
-        Text(
-          label,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-              color: Theme.of(context).primaryColor),
-        )
-      ],
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  const ReusableCard({super.key, required this.colour, this.cardChild});
-
-  final Color colour;
-  final Widget? cardChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: colour,
+        body: Column(
+          children: [
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedGender = Gender.male;
+                        });
+                      },
+                      child: ReusableCard(
+                        colour: selectedGender == Gender.male
+                            ? activecolor
+                            : inactivecolor,
+                        cardChild: const IconContent(
+                          icon: FontAwesomeIcons.mars,
+                          label: ('MALE'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedGender = Gender.female;
+                        });
+                      },
+                      child: ReusableCard(
+                        colour: selectedGender == Gender.female
+                            ? activecolor
+                            : inactivecolor,
+                        cardChild: const IconContent(
+                          icon: FontAwesomeIcons.venus,
+                          label: ('FEMALE'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ReusableCard(
+                      colour: inactivecolor,
+                      // Add content or remove if not needed
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: ReusableCard(
+                        colour: inactivecolor,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ReusableCard(
+                      colour: inactivecolor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              color: inactivecolor,
+              margin: const EdgeInsets.only(top: 10.0),
+              width: double.infinity,
+              height: bottomBarHeight,
+            )
+          ],
+        ),
       ),
-      child: cardChild,
     );
   }
 }
