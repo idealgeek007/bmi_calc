@@ -1,3 +1,4 @@
+import 'package:bmi_calc/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
@@ -79,7 +80,7 @@ class _InputPageState extends State<InputPage> {
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'HEIGHT',
                       style: kLabelTextStyle,
                     ),
@@ -92,7 +93,7 @@ class _InputPageState extends State<InputPage> {
                           height.toString(),
                           style: kBoldNumbersStyle,
                         ),
-                        Text(
+                        const Text(
                           'cm',
                           style: kLabelTextStyle,
                         )
@@ -103,10 +104,10 @@ class _InputPageState extends State<InputPage> {
                           thumbColor: Colors.red,
                           activeTrackColor: kActivecolor,
                           overlayColor: kOverlayColor,
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                          overlayShape:
-                              RoundSliderOverlayShape(overlayRadius: 20.0)),
+                          thumbShape: const RoundSliderThumbShape(
+                              enabledThumbRadius: 15.0),
+                          overlayShape: const RoundSliderOverlayShape(
+                              overlayRadius: 20.0)),
                       child: Slider(
                         value: height.toDouble(),
                         min: 120,
@@ -137,7 +138,7 @@ class _InputPageState extends State<InputPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               'WEIGHT',
                               style: kLabelTextStyle,
                             ),
@@ -145,7 +146,7 @@ class _InputPageState extends State<InputPage> {
                               weight.toString(),
                               style: kBoldNumbersStyle,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10.0,
                             ),
                             Row(
@@ -182,7 +183,7 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             'AGE',
                             style: kLabelTextStyle,
                           ),
@@ -190,7 +191,7 @@ class _InputPageState extends State<InputPage> {
                             age.toString(),
                             style: kBoldNumbersStyle,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Row(
@@ -221,16 +222,31 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Container(
-              color: kInactivecolor,
-              margin: const EdgeInsets.only(top: 10.0),
-              width: double.infinity,
-              height: kBottomBarHeight,
-              child: Center(
-                child: Text(
-                  'Calculate BMI',
-                  style: kLabelTextStyle.copyWith(
-                      fontSize: 30.0, color: Colors.redAccent),
+            GestureDetector(
+              onTap: () {
+                bmicalc(height, weight);
+                print('BMI is$bmi');
+                getiamge(bmi);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ResultPage();
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                color: kInactivecolor,
+                margin: const EdgeInsets.only(top: 10.0),
+                width: double.infinity,
+                height: kBottomBarHeight,
+                child: Center(
+                  child: Text(
+                    'Calculate BMI',
+                    style: kLabelTextStyle.copyWith(
+                        fontSize: 30.0, color: Colors.redAccent),
+                  ),
                 ),
               ),
             )
@@ -238,6 +254,12 @@ class _InputPageState extends State<InputPage> {
         ),
       ),
     );
+  }
+
+  void bmicalc(int h, int w) {
+    double dh = (h / 100);
+    bmi = w / (dh * dh);
+    bmi = double.parse(bmi.toStringAsFixed(2)); // Round to 2 decimal places
   }
 }
 
@@ -251,17 +273,17 @@ class RoundIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      constraints: BoxConstraints.tightFor(
+      constraints: const BoxConstraints.tightFor(
         width: 56.0,
         height: 56.0,
       ),
-      shape: CircleBorder(),
+      shape: const CircleBorder(),
       onPressed: () => onPressed(),
       elevation: 10.0,
       highlightElevation: 10.0,
       fillColor: kBgcolor,
-      child: Icon(icon),
       splashColor: Colors.red,
+      child: Icon(icon),
     );
   }
 }
