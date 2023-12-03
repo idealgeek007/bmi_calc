@@ -24,7 +24,7 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           label,
-          style: kLabelTextStyle,
+          style: kLabelTextStyle.copyWith(color: Colors.white),
         )
       ],
     );

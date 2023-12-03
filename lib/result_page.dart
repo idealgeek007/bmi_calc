@@ -1,4 +1,5 @@
 import 'package:bmi_calc/constants.dart';
+import 'package:bmi_calc/theme/theme.dart';
 
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,6 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBgcolor,
       appBar: AppBar(
         title: const Text('BMI CALCULATOR'),
       ),
@@ -17,33 +17,38 @@ class ResultPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
+            flex: 1,
             child: Center(
               child: Text(
                 'YOUR RESULT',
-                style: kLabelTextStyle.copyWith(color: kActivecolor),
+                style: kLabelTextStyle.copyWith(
+                    color: kActivecolor, fontSize: 32.0),
               ),
             ),
-            flex: 1,
           ),
           Expanded(
             flex: 5,
             child: Container(
-              color: kActivecolor,
+              margin: const EdgeInsets.all(30.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                color: kOverlayColor,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     '$wtname',
-                    style: kLabelTextStyle.copyWith(color: kBgcolor),
+                    style: kLabelTextStyle.copyWith(fontSize: 26.0),
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 40.0),
                   Image.asset('assets/images/$imgname.png'),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 40.0),
                   Center(
                     child: Text(
                       'Your Body Mass Index is $bmi.',
-                      style: kLabelTextStyle.copyWith(color: kBgcolor),
+                      style: kLabelTextStyle.copyWith(fontSize: 22.0),
                     ),
                   )
                 ],
@@ -60,19 +65,19 @@ getiamge(bmi) {
   switch (bmi) {
     case <= 18.5:
       imgname = 'underwt';
-      wtname = 'Under Weight';
+      wtname = 'UNDER WEIGHT';
     case >= 18.5 && < 25:
       imgname = 'normalwt';
-      wtname = 'Normal Weight';
+      wtname = 'NORMAL WEIGHT';
     case >= 25 && < 30:
       imgname = 'overwt';
-      wtname = 'Over Weight';
+      wtname = 'OVER WEIGHT';
     case >= 30 && < 35:
       imgname = 'obese';
-      wtname = 'Obese';
+      wtname = 'OBESE';
     case >= 35:
       imgname = 'extremelyobese';
-      wtname = 'Extremely Obese';
+      wtname = 'EXTREMELY OBESE';
     default:
       break;
   }
